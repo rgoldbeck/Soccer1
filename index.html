@@ -16,7 +16,7 @@
     --cell-h: 60px;
   }
   *{ box-sizing: border-box; }
-  html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:"Times New Roman", serif; }
+  html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
   .wrap { max-width:1000px; margin:0 auto; padding:24px; }
 
   /* Hero header (left text, right image) */
@@ -28,7 +28,7 @@
   @media (max-width: 900px){ .hero{ grid-template-columns: 1fr; } .hero .hero-text{ text-align:center; } .hero-img{ margin:0 auto; } }
 
   .month { break-inside: avoid; page-break-inside: avoid; margin: 12px 0 16px; }
-  .month h3 { text-align:center; margin: 8px 0; letter-spacing:1px; font-size:16px; }
+  .month h3 { text-align:center; margin: 8px 0; letter-spacing:1px; font-size:20px; }
 
   table.cal { width:100%; border-collapse: collapse; table-layout: fixed; }
   .cal th, .cal td { border: 2px solid var(--grid); vertical-align: top; padding: 6px; height: var(--cell-h); position: relative; }
@@ -37,17 +37,15 @@
   .cal td.day--cutoff { background: #dcdcdc; color: #a0a0a0; }
 
   .num {   position:absolute;
-  top:6px; right:8px; font-size:13px; font-weight:700; color:var(--ink);
-  background:#fff; padding:1px 4px; border-radius:4px;box-shadow:0 0 2px rgba(0,0,0,0.15);
-  z-index:2;}
+  top:1px; right:10px; font-size:13px; font-weight:700; color:var(--ink); padding:1px 4px;  z-index:2;}
 
-  .badge { margin-top: 12px; display:block; font-size:12px; padding:4px 6px; line-height:1.2; border-radius:10px; color:#fff; }
+  .badge { margin-top: 12px; display:block; font-size:11px; padding:4px 6px; line-height:1.2; border-radius:10px; color:#fff; }
   .badge.home { background: var(--home); }
   .badge.away { background: var(--away); }
   .badge.practice { background: var(--practice); color:#111; border:1px solid #b59f00; }
-  .badge .line1 { font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .badge .line2 { font-size: 11px; opacity:.95; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .badge .line3{ font-size: 11px; font-style: italic; opacity:.95; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }  /* Snacks line */
+.badge .line1 { font-weight:600; white-space:normal; overflow:visible; text-overflow:clip; }
+.badge .line2 { font-weight:500;font-size:11px; opacity:.95; white-space:normal; overflow:visible; text-overflow:clip; }
+.badge .line3 { font-weight:500;font-size:11px; font-style:italic; opacity:.95; white-space:normal; overflow:visible; text-overflow:clip; }
 
   .after-cal { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; margin-top: 6px; }
 
@@ -61,9 +59,9 @@
   .elist .dot.home { background: var(--home); }
   .elist .dot.away { background: var(--away); }
   .elist .dot.practice { background: var(--practice); border:1px solid #b59f00; }
-  .elist .text .what { font-weight:700; font-size:11px; line-height:1.1; }
-  .elist .text .meta { color:var(--muted); font-size:9px; line-height:1.1; }
-  .elist .text .snack{ font-style: italic; font-size:9px; color:var(--muted); }  /* Snacks line */
+  .elist .text .what { font-weight:700; font-size:11px; line-height:1.2; }
+  .elist .text .meta { color:var(--muted); font-size:10px; line-height:1.2; }
+  .elist .text .snack{ font-style: italic; font-size:10px; color:var(--muted); }  /* Snacks line */
 
   .fields-img { width:100%; height:auto; display:block; border:1px solid #ccc; border-radius:8px; }
 
@@ -102,25 +100,62 @@
     .wrap { padding:16px; }
   }
 
-  @media (max-width: 400px) {
-    :root { --cell-h: 110px; }
-    .badge { font-size:12px; }
-    .badge .line2, .badge .line3 { font-size:11px; }
-  }
-
-  /* === PRINT OVERRIDES (LAST & with !important) === */
+   /* === PRINT OVERRIDES (LAST & with !important) === */
   @media print {
-    @page { size: 8.5in 11in; margin: 0.25in; }
+    @page {
+      size: 8.5in 11in;
+      margin: 0.4in;   /* slightly bigger so outer edges print cleanly */
+    }
+
     html, body { margin:0 !important; padding:0 !important; }
-    .wrap { width: 8.0in !important; margin: 0 !important; padding: 0 !important; }
+    .wrap { width: 8in !important; margin: 0 !important; padding: 0 !important; }
 
     /* Force calendar compaction */
     :root { --cell-h: .60in !important; }
-    .cal th, .cal td { padding: 3px !important; border-width: 1px !important; }
-    .num { top:3px !important; right:5px !important; font-size:10px !important; }
-    .badge { margin-top:6px !important; padding:3px 4px !important; font-size:10px !important; line-height:1.15 !important; border-radius:7px !important; }
-    .badge .line2 { font-size:9px !important; }
-    .badge .line3 { font-size:9px !important; }
+    .cal {
+      border-collapse: collapse;
+      border-spacing: 0;
+      outline: 1px solid var(--grid);   /* ensures outer edge always prints */
+      width: 100%;
+      table-layout: fixed;
+    }
+    .cal th, .cal td {
+      padding: 3px !important;
+      border: 1px solid var(--grid) !important;
+      vertical-align: top;
+      position: relative;
+    }
+    .cal td.day {
+      padding-top: 16px !important;   /* reserve space for the day number */
+    }
+
+    /* 🔑 Force visible right edge on Saturday */
+    .cal tr > td:last-child,
+    .cal tr > th:last-child {
+      border-right: 2px solid var(--grid) !important;
+    }
+
+    .num {
+      position: absolute;
+      top: 2px !important;
+      right: 4px !important;
+      font-size: 10px !important;
+      font-weight: 700;
+      background: var(--paper);
+      padding: 0 2px !important;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .badge {
+      margin-top: 2px !important;   /* tighter spacing so more fit */
+      padding: 3px 4px !important;
+      font-size: 9px !important;
+      line-height: 1.15 !important;
+      border-radius: 7px !important;
+    }
+    .badge .line2 { font-size: 9px !important; }
+    .badge .line3 { font-size: 9px !important; }
 
     .month h3 { margin:4px 0 6px !important; font-size:14px !important; }
 
@@ -175,6 +210,7 @@
     .elist .text .meta { font-size:9px !important; }
     .elist .text .snack { font-size:9px !important; }
   }
+
 </style>
 </head>
 <body>
@@ -183,15 +219,9 @@
   <!-- Hero header -->
   <div class="hero">
     <header class="hero-text">
-      <h1>Vampires - 6U Boys</h1>
-      <h2>Coaches</h2>
-      <a class="btn btn-snack"
-         href="https://www.signupgenius.com/go/10C0D45ACA722A4F9C07-58004215-vampires"
-         target="_blank" rel="noopener">
-        Snack Signup here with SignUpGenius
-      </a>
+      <h1>Goldbeck Boys Soccer Schedule Fall 2025</h1>
     </header>
-    <img class="hero-img" alt="Coaches" src="https://res.cloudinary.com/dwsdvc5sd/image/upload/coaches.png?v=1756184491"/>
+  
   </div>
 
   <!-- Weather widget: under header, full width of calendar -->
@@ -227,11 +257,9 @@
           <div class="num">2</div>
           <div class="badge practice">
             <div class="line1">5:45 PM Carson Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
           <div class="badge practice">
             <div class="line1">6:15 PM Bryce Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
         </td>
         <td class="day">
@@ -270,11 +298,9 @@
           <div class="num">9</div>
           <div class="badge practice">
             <div class="line1">5:45 PM Carson Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
           <div class="badge practice">
             <div class="line1">6:15 PM Bryce Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
         </td>
         <td class="day">
@@ -309,11 +335,9 @@
           <div class="num">16</div>
           <div class="badge practice">
             <div class="line1">5:45 PM Carson Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
           <div class="badge practice">
             <div class="line1">6:15 PM Bryce Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
         </td>
         <td class="day">
@@ -383,11 +407,9 @@
           <div class="num">30</div>
           <div class="badge practice">
             <div class="line1">5:45 PM Carson Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
           <div class="badge practice">
             <div class="line1">6:15 PM Bryce Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
         </td>
         <td class="day day--empty"></td>
@@ -447,11 +469,9 @@
           <div class="num">7</div>
           <div class="badge practice">
             <div class="line1">5:45 PM Carson Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
           <div class="badge practice">
             <div class="line1">6:15 PM Bryce Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
         </td>
         <td class="day">
@@ -486,11 +506,9 @@
           <div class="num">14</div>
           <div class="badge practice">
             <div class="line1">5:45 PM Carson Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
           <div class="badge practice">
             <div class="line1">6:15 PM Bryce Practice</div>
-            <div class="line2">VS Sherman Elementary</div>
           </div>
         </td>
         <td class="day">
@@ -527,14 +545,14 @@
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Carson Practice • VS Sherman Elementary</div>
+        <div class="what">Carson Practice</div>
         <div class="meta">Tue, Sep 02, 2025 • 5:45 PM</div>
       </div>
     </li>
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Bryce Practice • VS Sherman Elementary</div>
+        <div class="what">Bryce Practice</div>
         <div class="meta">Tue, Sep 02, 2025 • 6:15 PM</div>
       </div>
     </li>
@@ -562,14 +580,14 @@
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Carson Practice • VS Sherman Elementary</div>
+        <div class="what">Carson Practice</div>
         <div class="meta">Tue, Sep 09, 2025 • 5:45 PM</div>
       </div>
     </li>
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Bryce Practice • VS Sherman Elementary</div>
+        <div class="what">Bryce Practice</div>
         <div class="meta">Tue, Sep 09, 2025 • 6:15 PM</div>
       </div>
     </li>
@@ -590,14 +608,14 @@
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Carson Practice • VS Sherman Elementary</div>
+        <div class="what">Carson Practice</div>
         <div class="meta">Tue, Sep 16, 2025 • 5:45 PM</div>
       </div>
     </li>
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Bryce Practice • VS Sherman Elementary</div>
+        <div class="what">Bryce Practice</div>
         <div class="meta">Tue, Sep 16, 2025 • 6:15 PM</div>
       </div>
     </li>
@@ -639,14 +657,14 @@
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Carson Practice • VS Sherman Elementary</div>
+        <div class="what">Carson Practice</div>
         <div class="meta">Tue, Sep 30, 2025 • 5:45 PM</div>
       </div>
     </li>
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Bryce Practice • VS Sherman Elementary</div>
+        <div class="what">Bryce Practice</div>
         <div class="meta">Tue, Sep 30, 2025 • 6:15 PM</div>
       </div>
     </li>
@@ -667,14 +685,14 @@
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Carson Practice • VS Sherman Elementary</div>
+        <div class="what">Carson Practice</div>
         <div class="meta">Tue, Oct 07, 2025 • 5:45 PM</div>
       </div>
     </li>
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Bryce Practice • VS Sherman Elementary</div>
+        <div class="what">Bryce Practice</div>
         <div class="meta">Tue, Oct 07, 2025 • 6:15 PM</div>
       </div>
     </li>
@@ -695,14 +713,14 @@
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Carson Practice • VS Sherman Elementary</div>
+        <div class="what">Carson Practice</div>
         <div class="meta">Tue, Oct 14, 2025 • 5:45 PM</div>
       </div>
     </li>
     <li class="item practice">
       <span class="dot practice"></span>
       <div class="text">
-        <div class="what">Bryce Practice • VS Sherman Elementary</div>
+        <div class="what">Bryce Practice</div>
         <div class="meta">Tue, Oct 14, 2025 • 6:15 PM</div>
       </div>
     </li>
@@ -722,7 +740,7 @@
     </li>
   </ul>
 </section>
-    <img class="fields-img" alt="Fields Map" src="https://res.cloudinary.com/dwsdvc5sd/image/upload/2025SOCCERFIELDS.png?v=1756184491"/>
+    <img class="fields-img" alt="Fields Map" src="https://res.cloudinary.com/dwsdvc5sd/image/upload/2025SOCCERFIELDS1.png?v=1756230390"/>
   </div>
 
   <!-- Weather widget script -->
